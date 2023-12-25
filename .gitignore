@@ -2,3 +2,9 @@
 myvenv
 *.pyc
 .env
+api_insta/get_jwt.json
+api_insta/mycollection.json
+api_insta/media/avatars/2.png
+api_insta/media/avatars/2User1.png
+api_insta/media/posts/2first_post.png
+api_insta/media/posts/2second_post.png
