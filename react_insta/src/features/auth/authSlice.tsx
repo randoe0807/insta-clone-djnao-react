@@ -194,5 +194,15 @@ export const {
     resetOpenProfile,
     editNickname,
 } = authSlice.actions;
-export const selectCount = (state: RootState) => state.counter.value;
+
+// ここを定義することでuseSelectorで呼び出せるようになる。
+export const selectIsLoadingAuth = (state: RootState) => 
+// auth is store.ts, configurestore name.
+    state.auth.isLoadingAuth;
+export const selectOpenSignIn = (state: RootState) => state.auth.openSignIn;
+export const selectOpenSignUp = (state: RootState) => state.auth.openSignUp;
+export const selectOpenProfile = (state: RootState) => state.auth.openProfile;
+export const selectProfile = (state: RootState) => state.auth.myprofile;
+export const selectProfiles = (state: RootState) => state.auth.profiles;
+
 export default authSlice.reducer;
