@@ -5,7 +5,7 @@ import { RootState } from '../../app/store';
 import axios from "axios";
 import { PROPS_AUTHEN, PROPS_PROFILE, PROPS_NICKNAME } from "../types";
 
-const apiUrl = process.env.REACT_APP_DEV_API_URL;
+const apiUrl = process.env.REACT_APP_API_URL;
 
 // when user access to the site, fetchAsyncGetMyProf is called. retun jwt token.
 export const fetchAsyncLogin = createAsyncThunk(
