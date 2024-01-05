@@ -14,7 +14,6 @@ import {
   Avatar,
   Badge,
   CircularProgress,
-  Divider,
 } from "@material-ui/core";
 
 // camera icon
@@ -45,6 +44,7 @@ import {
 } from "../post/postSlice";
 import { PostAdd } from '@material-ui/icons';
 
+import Post from '../post/Post';
 // material-ui badge
 const StyledBadge = withStyles((theme) => ({
   badge: {

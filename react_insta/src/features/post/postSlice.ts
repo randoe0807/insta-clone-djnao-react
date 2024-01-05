@@ -36,11 +36,9 @@ export const fetchAsyncNewPost = createAsyncThunk(
   }
 );
 
-// Async function for liked
 export const fetchAsyncPatchLiked = createAsyncThunk(
   "post/patch",
   async (liked: PROPS_LIKED) => {
-    // currentLiked is array of liked.
     const currentLiked = liked.current;
     const uploadData = new FormData();
 
@@ -49,15 +47,12 @@ export const fetchAsyncPatchLiked = createAsyncThunk(
       if (current === liked.new) {
         isOverlapped = true;
       } else {
-        // currentliked not include liked.new
         uploadData.append("liked", String(current));
       }
     });
-    // if not include liked.new, add liked.new
+
     if (!isOverlapped) {
       uploadData.append("liked", String(liked.new));
-      // if include liked.new, delete liked.new
-      // empty currentLiked 
     } else if (currentLiked.length === 1) {
       uploadData.append("title", liked.title);
       const res = await axios.put(`${apiUrlPost}${liked.id}/`, uploadData, {
@@ -68,6 +63,9 @@ export const fetchAsyncPatchLiked = createAsyncThunk(
       });
       return res.data;
     }
+    // const data = {
+    //   liked : Array.from(uploadData.values()),
+    // };
     const res = await axios.patch(`${apiUrlPost}${liked.id}/`, uploadData, {
       headers: {
         "Content-Type": "application/json",
