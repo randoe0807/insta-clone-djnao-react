@@ -28,6 +28,7 @@ import {
   setOpenSignIn,
   resetOpenSignIn,
   setOpenSignUp,
+  resetOpenSignUp,
   setOpenProfile,
   resetOpenProfile,
   fetchAsyncGetMyProf,
@@ -42,6 +43,7 @@ import {
   resetOpenNewPost,
   fetchAsyncGetPosts,
 } from "../post/postSlice";
+import { PostAdd } from '@material-ui/icons';
 
 // material-ui badge
 const StyledBadge = withStyles((theme) => ({
@@ -128,12 +130,62 @@ const Core: React.FC = () => {
                 }}>
                 Logout
               </Button>
+              <StyledBadge
+                overlap="circular"
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                variant="dot">
+                <Avatar
+                  alt="who?"
+                  src={profile.img}
+                  />{" "}
+                </StyledBadge>
             </div>
           </>
         ) : (
-          <div></div>
+          <div>
+            <Button
+              onClick={()=>{
+                dispatch(setOpenSignIn());
+                dispatch(resetOpenSignUp());
+              }}>Login</Button>
+            <Button
+              onClick={()=>{
+                dispatch(setOpenSignIn());
+                dispatch(resetOpenSignIn());
+              }}>SignUp</Button>
+          </div>
         )}
       </div>
+      {profile?.nickName && (
+        <>
+          <div className={styles.core_posts}>
+            <Grid container spacing={4}>
+              {posts
+                .slice(0)
+                .reverse()
+                .map((post) => (
+                  // brake point
+                  // xs: mobile, md: desktop
+                  <Grid key={post.id} item xs={12} md={4}>
+                    <Post
+                      postId={post.id}
+                      title={post.title}
+                      loginId={profile.userProfile}
+                      userPost={post.userPost}
+                      imageUrl={post.img}
+                      liked={post.liked}
+                      />
+                    </Grid>
+                ))}
+            </Grid>
+          </div>
+        </>
+      )}
+
+
     </div>
   );
 };
