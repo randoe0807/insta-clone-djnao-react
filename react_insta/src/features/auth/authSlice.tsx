@@ -65,7 +65,7 @@ export const fetchAsyncUpdateProf = createAsyncThunk(
             uploadData,
             {
                 headers: {
-                    "Content-Type": "application/json",
+                    "Content-Type": "multipart/form-data",
                     Authorization: `JWT ${localStorage.localJWT}`,
                 },
             }

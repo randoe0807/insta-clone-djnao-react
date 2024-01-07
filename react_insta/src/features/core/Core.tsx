@@ -41,17 +41,20 @@ import {
   setOpenNewPost,
   resetOpenNewPost,
   fetchAsyncGetPosts,
+  fetchAsyncGetComments,
 } from "../post/postSlice";
-import { PostAdd } from '@material-ui/icons';
+// import { PostAdd } from '@material-ui/icons';
 
 import Post from '../post/Post';
+import EditProfile from './EditProfile';
+
 // material-ui badge
 const StyledBadge = withStyles((theme) => ({
   badge: {
     backgroundColor: "#44b700",
     color: "#44b700",
     boxShadow: `0 0 0 2px ${theme.palette.background.paper}`,
-    "6::after": {
+    "&::after": {
       position: "absolute",
       top: 0,
       left: 0,
@@ -97,6 +100,7 @@ const Core: React.FC = () => {
         // get all user information.
         await dispatch(fetchAsyncGetProfs());
         await dispatch(fetchAsyncGetPosts());
+        await dispatch(fetchAsyncGetComments());
       }
     };
     fetchBootLoader();
@@ -105,6 +109,7 @@ const Core: React.FC = () => {
   return (
     <div>
       <Auth />
+      <EditProfile />
       <div className={styles.core_header}>
         <h1 className={styles.core_title}>SNS clone</h1>
         {profile?.nickName ? (
@@ -130,35 +135,44 @@ const Core: React.FC = () => {
                 }}>
                 Logout
               </Button>
-              <StyledBadge
-                overlap="circular"
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
+              <button
+                className={styles.core_btnModal}
+                onClick={() => {
+                  dispatch(setOpenProfile());
+                  dispatch(resetOpenNewPost());
                 }}
-                variant="dot">
-                <Avatar
-                  alt="who?"
-                  src={profile.img}
+              >
+                <StyledBadge
+                  overlap="circular"
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "right",
+                  }}
+                  variant="dot">
+                  <Avatar
+                    alt="who?"
+                    src={profile.img}
                   />{" "}
                 </StyledBadge>
+              </button>
             </div>
           </>
         ) : (
           <div>
             <Button
-              onClick={()=>{
+              onClick={() => {
                 dispatch(setOpenSignIn());
                 dispatch(resetOpenSignUp());
               }}>Login</Button>
             <Button
-              onClick={()=>{
-                dispatch(setOpenSignIn());
+              onClick={() => {
+                dispatch(setOpenSignUp());
                 dispatch(resetOpenSignIn());
               }}>SignUp</Button>
           </div>
         )}
       </div>
+
       {profile?.nickName && (
         <>
           <div className={styles.core_posts}>
@@ -177,15 +191,13 @@ const Core: React.FC = () => {
                       userPost={post.userPost}
                       imageUrl={post.img}
                       liked={post.liked}
-                      />
-                    </Grid>
+                    />
+                  </Grid>
                 ))}
             </Grid>
           </div>
         </>
       )}
-
-
     </div>
   );
 };
