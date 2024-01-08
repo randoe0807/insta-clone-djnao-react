@@ -91,6 +91,7 @@ const Post: React.FC<PROPS_POST> = ({
             onChange={handlerLiked}
           />
           <strong> {prof[0]?.nickName}</strong> {title}
+          {/* icon max 7 */}
           <AvatarGroup max={7}>
             {liked.map((like) => (
               <Avatar

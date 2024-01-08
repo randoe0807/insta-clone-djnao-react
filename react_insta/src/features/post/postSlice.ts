@@ -28,7 +28,7 @@ export const fetchAsyncNewPost = createAsyncThunk(
     newPost.img && uploadData.append("img", newPost.img, newPost.img.name);
     const res = await axios.post(apiUrlPost, uploadData, {
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "multipart/form-data",
         Authorization: `JWT ${localStorage.localJWT}`,
       },
     });
